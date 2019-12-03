@@ -7,6 +7,9 @@ This directory contains the cleaned up version of CHARS74Kdataset we used to tra
 # alphanumeric
 This directory contains the dataset I put together for the detection CNN
 
+# detect_segment.py
+the code for license plate detection and segmentation.
+
 # helper.py
 Modified code from pytorch tutorial for display of CNN prediction output
 
@@ -22,5 +25,4 @@ train1 is for detection CNN.
 train2 and train2v2 are for classification CNN
 train2 is trained on unmodified dataset.
 train2v2 is trained on augmented (using randon transformations, perspectives, etc)dataset. 
-
 
