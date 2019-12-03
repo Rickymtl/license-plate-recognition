@@ -66,7 +66,7 @@ def predict_plate():
         im = img.unsqueeze(0)
         ps = torch.exp(categorizer(im))
         top_p, top_class = ps.topk(1, dim=1)
-        helper.view_classify(im, ps, version='CAT')
+#         helper.view_classify(im, ps, version='CAT')
 
         if top_class.item()==0:
             continue
@@ -88,7 +88,7 @@ def predict_plate():
         else:
             plate = plate + CATEGORIES[top_class.item()]
         # Plot the image and probabilities
-        helper.view_classify(im, ps, version='CHAR')
+#         helper.view_classify(im, ps, version='CHAR')
     save_file.write(plate+'\n')
     save_file.close()
     print(plate)
