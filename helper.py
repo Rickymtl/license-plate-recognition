@@ -7,9 +7,11 @@ CATEGORIES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', '
               'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 
 
-#
+# modified version of the pytoch tutorial helper to show class predictions.
 def view_classify(img, ps, version="CHAR"):
     ''' Function for viewing an image and it's predicted classes.
+    version:CHAR for clasification CNN
+            CAT for detection(category) CNN
     '''
     ps = ps.data.numpy().squeeze()
 
