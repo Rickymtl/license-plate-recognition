@@ -1,47 +1,53 @@
 import torch
 import helper
 from tqdm import tqdm
-from model import CNN, CNN2
+from model import CNN, CNN2, CNN3
 from torch import nn, optim
-import torch.nn.functional as F
 import os
 from matplotlib import pyplot as plt
 import numpy as np
-from os import listdir
 import torch.utils.data as data
 import cv2
 from torchvision import datasets, transforms
 import random
 
-DATADIR = './alphanumeric'
 CATEGORIES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
               'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
 CATEGORIES2 = ['false', 'true']
 IMSIZE = 28
 
-transform = transforms.Compose([transforms.Resize((IMSIZE, IMSIZE)), transforms.Grayscale(),
+transform_train = transforms.Compose([
+                                transforms.Grayscale(),transforms.Resize((IMSIZE, IMSIZE)),
+
+                                transforms.RandomCrop(IMSIZE),transforms.RandomPerspective(),
+                                transforms.RandomAffine(20,(0.2,0.2)),
+
+                                transforms.ToTensor(),
+                                transforms.Normalize((0.5,), (0.5,))])
+transform_test = transforms.Compose([transforms.Resize((IMSIZE, IMSIZE)),
+                                transforms.Grayscale(),
                                 transforms.ToTensor(),
                                 transforms.Normalize((0.5,), (0.5,))])
 # Download and load the training data
-train_data = datasets.ImageFolder(root='./alphanumeric/train', transform=transform)
+train_data = datasets.ImageFolder(root='./English/train', transform=transform_train)
 train_data_loader = data.DataLoader(train_data, batch_size=64, shuffle=True)
 
-test_data = datasets.ImageFolder(root='./alphanumeric/train', transform=transform)
+test_data = datasets.ImageFolder(root='./English/test', transform=transform_test)
 test_data_loader = data.DataLoader(test_data, batch_size=64, shuffle=True)
 
 # letters:
 # trainset3 = datasets.EMNIST('/.pytorch/EMNIST_data/', 'letters', train=True, download=True, transform=transform)
-# image, label = next(iter(train_data_loader))
-# print(label)
-# print(CATEGORIES2[label[0]])
-# img = image[0, :]
-# img = img.numpy().transpose((1, 2, 0))
-# im2 = img[:, :, 0]
-# print(img.shape)
-# plt.imshow(im2, 'gray')
-# plt.show()
+image, label = next(iter(train_data_loader))
+print(label)
+print(CATEGORIES[label[0]])
+img = image[0, :]
+img = img.numpy().transpose((1, 2, 0))
+im2 = img[:, :, 0]
+print(img.shape)
+plt.imshow(im2, 'gray')
+plt.show()
 
-model = CNN()
+model = CNN3()
 criterion = nn.NLLLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.003)
 
@@ -63,7 +69,7 @@ for e in range(epochs):
     else:
         print(f"Training loss: {running_loss / len(train_data_loader)}")
 
-torch.save(model.state_dict(), 'train1.pt')
+torch.save(model.state_dict(), 'train2v2.pt')
 
 # model.load_state_dict(torch.load('train1.pt'))
 
@@ -89,4 +95,4 @@ img = img.unsqueeze(0)
 ps = torch.exp(model(img))
 print(ps)
 # Plot the image and probabilities
-helper.view_classify(img, ps, version='CAT')
+helper.view_classify(img, ps, version='CHAR')
