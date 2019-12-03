@@ -283,6 +283,8 @@ def find_license_plate(path):
   top_contour = []
   top_license_plate = ''
   top_bot_left = []
+  top_top_left = []
+  top_bot_right = []
   for contour in rect_list:
     binary_img = convert_binary_img(gray_img,True)
   #find possible position of the plate
@@ -317,8 +319,10 @@ def find_license_plate(path):
       top_contour = contour
       top_license_plate = detection
       top_bot_left = bot_left
-  final_img = cv2.drawContours(car_img.copy(),top_contour,-1,(255,0,0),6)
-  cv2.putText(final_img,detection,(top_bot_left[0],top_bot_left[1]+15),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),2,cv2.LINE_AA)
+      top_top_left = top_left
+      top_bot_right = bot_right
+  final_img = cv2.rectangle(car_img.copy(), (top_top_left[0], top_top_left[1]), (top_bot_right[0], top_bot_right[1]), (255,0,0), 3)
+  cv2.putText(final_img,detection,(top_bot_left[0],top_bot_left[1]+20),cv2.FONT_HERSHEY_SIMPLEX,1,(255,0,0),2,cv2.LINE_AA)
   final_img = cv2.cvtColor(final_img,cv2.COLOR_RGB2BGR)
   con_img = cv2.cvtColor(con_img,cv2.COLOR_RGB2BGR)
   cv2.imwrite('final_img.jpg',final_img)
