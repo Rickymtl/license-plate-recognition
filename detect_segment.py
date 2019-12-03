@@ -301,7 +301,8 @@ def find_license_plate(path):
 #segmented plate
     seg_list,digits = segmentation_digit(seg_seg,credict_point_row,credict_point_col)
     ori_seg_list,digits = segmentation_digit(ori_seg,credict_point_row,credict_point_col)
-    folder_name = "img"+ str(count)
+    root = "English/pred/img"+ str(count)
+    folder_name = root+"/img"
     if not os.path.exists(folder_name):
       os.mkdir(folder_name)
     else:
@@ -313,7 +314,7 @@ def find_license_plate(path):
       #color_seg = cv2.cvtColor(zero_one,cv2.COLOR_RGB2BGR)
       cv2.imwrite(seg_path,zero_one)
     count+=1
-    detection = predict_plate()
+    detection = predict_plate(root)
     if len(detection) > max_length:
       max_length = len(detection)
       top_contour = contour
