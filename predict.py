@@ -55,7 +55,7 @@ model.load_state_dict(torch.load('train2.pt'))
 
 
 save_file = 'plates.txt'
-save_file = open(save_file,'a')
+save_file = open(save_file,'w')
 
 dataiter = iter(pred_data_loader)
 images, labels = dataiter.next()
