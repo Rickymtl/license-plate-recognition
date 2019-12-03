@@ -16,7 +16,7 @@ from torchvision import datasets, transforms
 
 # model = CNN3()
 # summary(model, (1,28,28))
-def predict_plate():
+def predict_plate(DIR):
 
     DATADIR = 'English/pred/img1/'
     CATEGORIES = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
@@ -30,7 +30,7 @@ def predict_plate():
     # load the data prediction data
 
 
-    pred_data = datasets.ImageFolder(root='./English/pred', transform=transform)
+    pred_data = datasets.ImageFolder(root=DIR, transform=transform)
     pred_data_loader = data.DataLoader(pred_data, batch_size=64, shuffle=False)
 
 
