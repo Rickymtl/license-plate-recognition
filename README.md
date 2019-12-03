@@ -27,3 +27,5 @@ train2 is trained on unmodified dataset.
 train2v2 is trained on augmented (using randon transformations, perspectives, etc)dataset. 
 train2 generally works better.
 
+# example.png
+An example image we used.
