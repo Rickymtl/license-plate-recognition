@@ -25,4 +25,5 @@ train1 is for detection CNN.
 train2 and train2v2 are for classification CNN
 train2 is trained on unmodified dataset.
 train2v2 is trained on augmented (using randon transformations, perspectives, etc)dataset. 
+train2 generally works better.
 
