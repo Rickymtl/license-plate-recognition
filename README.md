@@ -29,3 +29,7 @@ train2 generally works better.
 
 # example.png
 An example image we used.
+
+# to run the example
+run:
+python detect_segment.py 'example.png'
