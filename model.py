@@ -1,6 +1,7 @@
 from torch import nn, optim
 import torch.nn.functional as F
 
+# a simple CNN to determine if the image contains a character.
 class CNN(nn.Module):
     def __init__(self):
         super(CNN, self).__init__()
@@ -23,6 +24,7 @@ class CNN(nn.Module):
         out = self.fc(out)
         return F.log_softmax(out, dim=1)
 
+# I tried to use the simple CNN for classification purpose too but it doesn't work well
 class CNN2(nn.Module):
     def __init__(self):
         super(CNN2, self).__init__()
@@ -45,7 +47,8 @@ class CNN2(nn.Module):
         out = self.fc(out)
         return F.log_softmax(out, dim=1)
 
-
+# a good model from Kaggle for written text recognition.
+# I tried to use it for classification and it works well.
 class CNN3(nn.Module):
     def __init__(self):
         super(CNN3, self).__init__()
